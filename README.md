@@ -18,7 +18,7 @@ This project is a web application that allows users to find exchange rates from 
 
 ### Project Build Available At:
 
-[BUILD URL](BUILD URL)
+[https://usarneme.github.io/currency_exchanger/](https://usarneme.github.io/currency_exchanger/)
 
 ---
 ### Installation Instructions
