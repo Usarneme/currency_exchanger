@@ -34,12 +34,11 @@ $("#original-amount").on("change blur", () => {
   if (validateForm()) showExchangeSubmitButton()
 })
 
-// validate both from and to are selected
+// validate cash, to, and from currencies have been set before allowing submit/request
 const validateForm = () => {
   return (myCurrencyExchange.getTo() && myCurrencyExchange.getFrom() && myCurrencyExchange.getCash())
 }
 
-// show submit button
 const showExchangeSubmitButton = () => {
   $("#exchangeSubmitButton").show()
 }
