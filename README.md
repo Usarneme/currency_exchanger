@@ -1,11 +1,11 @@
-# PROJECT NAME
+# Currency Exchanger
 ## By Usarneme/Tom
 
 ---
 
 ### Project Description
 
-This project is a web application that DESCRIPTION
+This project is a web application that allows uers to find exchange rates from any currency to any other. 
 ---
 ### Tech Stack
 1. HTML5+CSS3
@@ -16,6 +16,7 @@ This project is a web application that DESCRIPTION
 6. eslint
 7. babel transpiler
 8. Jest testing
+9. https://www.exchangerate-api.com/
 ---
 
 ### Project Build Available At:
@@ -30,6 +31,9 @@ This project is a web application that DESCRIPTION
 4. To run it locally, use the npm dev command `npm run start:dev`
 5. Open your web browser and navigate to http://localhost:9001
 6. For a production build, use `npm run build`
+7. Visit https://www.exchangerate-api.com/ to obtain an api key
+8. Create a file in the root directory called `.env`
+9. Save your API key from exchangerate-api.com in the .env file as a variable named API_KEY
 ---
 ### Known Issues:
 1. NO KNOWN ISSUES
