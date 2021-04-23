@@ -63,14 +63,13 @@ $(".form").on("submit", async event => {
     try {
       exchangeRateData = await CurrencyExchanger.getExchangeRatesFor(myCurrencyExchange.getFrom())
       console.log("NO ERROR - got api data:",exchangeRateData)
-      if (exchangeRateData.result !== "success") throw new Error(`API call failed: ${exchangeRateData.result}`)
+      if (exchangeRateData.result !== "success") throw new Error(`API call failed: ${exchangeRateData.result} - ${exchangeRateData["error-type"]}`)
       // update cache to save result
       updateCache(exchangeRateData.base_code, JSON.stringify(exchangeRateData.conversion_rates))
       // update ui
       return updateUi(exchangeRateData.conversion_rates)
     } catch (error) {
-      // TODO
-      console.error(error)
+      renderError(error)
     }
   }
 })
@@ -79,9 +78,22 @@ const updateUi = exchangeRateData => {
   console.log("updating UI:",exchangeRateData)
   const from = myCurrencyExchange.getFrom()
   const to = myCurrencyExchange.getTo()
+  // If the query response doesn't include that particular currency, the application should return a notification that states the currency in question doesn't exist.
+  // THIS IS IMPOSSIBLE WHEN USING SELECT OPTIONS^^^^^^ I did my best to account for this impossible condition on the next line. -Tom
+  if (!to) return renderError("Please select a currency to which you want to exchange funds.")
   const originalCash = myCurrencyExchange.getCash()
   const exchangeRatedCash = originalCash * exchangeRateData[to]
-  console.log(`From $${originalCash} ${from} to $${exchangeRatedCash} ${to}.`)
   let html = `<h2>From $${originalCash} ${from} to $${exchangeRatedCash.toFixed(2)} ${to}.</h2>`
   $(".results").html(html).show()
 }
+
+const renderError = errorMessage => {
+  if (errorMessage.message === "NetworkError when attempting to fetch resource.") errorMessage = "Error retrieving data. Did you forget to select currency types for both from and to which you want to exchange? Please try again."
+  console.error("ERROR func", errorMessage)
+  $(".error-span").text(errorMessage)
+  $(".alert").show()
+}
+
+$(".alert-close-button").on("click", () => {
+  $(".alert").hide()
+})
