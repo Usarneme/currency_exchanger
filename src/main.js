@@ -30,8 +30,7 @@ $("#currency-to").on("select change click blur", "option", (event) => {
 // handle changes to the original cash input
 $("#original-amount").on("change blur", () => {
   const cash = Number($("#original-amount").val())
-  console.log("CASH CHANGED",cash)
-  if (!cash || isNaN(cash)) return
+  if (!cash || isNaN(cash)) return renderError("Please enter an amount of money to be exchanged.")
   myCurrencyExchange.setCash(cash)
   if (validateForm()) showExchangeSubmitButton()
 })
@@ -48,25 +47,17 @@ const showExchangeSubmitButton = () => {
 // handle form submission/data retrieval
 $(".form").on("submit", async event => {
   event.preventDefault()
-  console.log("FORM SUBMIT", myCurrencyExchange)
   // check cache for existing exchange rate
   let exchangeRateData = checkCache(myCurrencyExchange.getFrom())
-  console.log("checked cache, found:",exchangeRateData)
   if (exchangeRateData) {
     // if yes, use cached data to get response/rate
-    console.log("USING CACHED DATA")
-    // TODO - cache invalidation/age of results?
     return updateUi(exchangeRateData)
   } else {
     // if no, make api call
-    console.log("CALLING API LOOKUP")
     try {
       exchangeRateData = await CurrencyExchanger.getExchangeRatesFor(myCurrencyExchange.getFrom())
-      console.log("NO ERROR - got api data:",exchangeRateData)
       if (exchangeRateData.result !== "success") throw new Error(`API call failed: ${exchangeRateData.result} - ${exchangeRateData["error-type"]}`)
-      // update cache to save result
       updateCache(exchangeRateData.base_code, JSON.stringify(exchangeRateData.conversion_rates))
-      // update ui
       return updateUi(exchangeRateData.conversion_rates)
     } catch (error) {
       renderError(error)
@@ -75,10 +66,9 @@ $(".form").on("submit", async event => {
 })
 
 const updateUi = exchangeRateData => {
-  console.log("updating UI:",exchangeRateData)
   const from = myCurrencyExchange.getFrom()
   const to = myCurrencyExchange.getTo()
-  // If the query response doesn't include that particular currency, the application should return a notification that states the currency in question doesn't exist.
+  // From spec: "If the query response doesn't include that particular currency, the application should return a notification that states the currency in question doesn't exist."
   // THIS IS IMPOSSIBLE WHEN USING SELECT OPTIONS^^^^^^ I did my best to account for this impossible condition on the next line. -Tom
   if (!to) return renderError("Please select a currency to which you want to exchange funds.")
   const originalCash = myCurrencyExchange.getCash()
@@ -89,7 +79,6 @@ const updateUi = exchangeRateData => {
 
 const renderError = errorMessage => {
   if (errorMessage.message === "NetworkError when attempting to fetch resource.") errorMessage = "Error retrieving data. Did you forget to select currency types for both from and to which you want to exchange? Please try again."
-  console.error("ERROR func", errorMessage)
   $(".error-span").text(errorMessage)
   $(".alert").show()
 }
