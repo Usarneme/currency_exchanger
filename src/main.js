@@ -54,3 +54,5 @@ $(".form").on("submit", event => {
   // update cache to save result
   // update ui
 })
+
+// check the cache for an existing exchange rate

@@ -29,7 +29,7 @@ export default class CurrencyExchanger {
     this.cash = amount
   }
 
-  static async getExchangeRateFor(currency) {
+  static async getExchangeRatesFor(currency) {
     const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/${currency}`
     const response = await fetch(url)
     return await response.json()
