@@ -67,7 +67,7 @@ $(".form").on("submit", async event => {
       // update cache to save result
       updateCache(exchangeRateData.base_code, JSON.stringify(exchangeRateData.conversion_rates))
       // update ui
-      return updateUi(exchangeRateData)
+      return updateUi(exchangeRateData.conversion_rates)
     } catch (error) {
       // TODO
       console.error(error)
@@ -77,4 +77,11 @@ $(".form").on("submit", async event => {
 
 const updateUi = exchangeRateData => {
   console.log("updating UI:",exchangeRateData)
+  const from = myCurrencyExchange.getFrom()
+  const to = myCurrencyExchange.getTo()
+  const originalCash = myCurrencyExchange.getCash()
+  const exchangeRatedCash = originalCash * exchangeRateData[to]
+  console.log(`From $${originalCash} ${from} to $${exchangeRatedCash} ${to}.`)
+  let html = `<h2>From $${originalCash} ${from} to $${exchangeRatedCash.toFixed(2)} ${to}.</h2>`
+  $(".results").html(html).show()
 }
