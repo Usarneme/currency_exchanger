@@ -1,7 +1,8 @@
 export default class CurrencyExchanger {
   constructor(from, to) {
     this.from = from,
-    this.to = to
+    this.to = to,
+    this.cash = 0
   }
 
   changeFrom(currency) {
@@ -10,6 +11,14 @@ export default class CurrencyExchanger {
 
   changeTo(currency) {
     this.to = currency
+  }
+
+  setCash(amount) {
+    this.cash = amount
+  }
+
+  getCash() {
+    return this.cash
   }
 
   static async getExchangeRateFor(currency) {

@@ -29,6 +29,9 @@ const showExchangeSubmitButton = () => {
 // handle form submission/data retrieval
 $(".form").on("submit", event => {
   event.preventDefault()
+  const cash = $("#original-amount").val()
+  if (cash === 0 || cash === "0") return alert("Please enter the cash amount you wish to exchange.")
+
   console.log("FORM SUBMIT", myCurrencyExchange)
   // check cache for existing exchange rate
   // if yes, use cached data to get response/rate (cache invalidation/age of results?)
