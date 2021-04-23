@@ -48,11 +48,30 @@ $(".form").on("submit", event => {
   event.preventDefault()
   console.log("FORM SUBMIT", myCurrencyExchange)
   // check cache for existing exchange rate
-  // if yes, use cached data to get response/rate (cache invalidation/age of results?)
-  // update ui
-  // if no, make api call
+  let exchangeRateData = checkCache(myCurrencyExchange.getFrom())
+  if (exchangeRateData) {
+    // if yes, use cached data to get response/rate (cache invalidation/age of results?)
+    return exchangeRateData
+  } else {
+    // if no, make api call
+    try {
+      exchangeRateData = myCurrencyExchange.getExchangeRatesFor(myCurrencyExchange.getFrom())
+    } catch (error) {
+      // TODO
+      console.error(error)
+    }
+  }
   // update cache to save result
+  updateCache(myCurrencyExchange.getFrom(), JSON.stringify(exchangeRateData))
   // update ui
+
 })
 
 // check the cache for an existing exchange rate
+const checkCache = currency => {
+  return JSON.parse(window.sessionStorage.getItem(currency))
+}
+
+const updateCache = (currency, exchangeRates) => {
+  window.sessionStorage.setItem(currency, JSON.stringify(exchangeRates))
+}
