@@ -5,20 +5,28 @@ export default class CurrencyExchanger {
     this.cash = 0
   }
 
-  changeFrom(currency) {
+  getFrom() {
+    return this.from
+  }
+
+  setFrom(currency) {
     this.from = currency
   }
 
-  changeTo(currency) {
-    this.to = currency
+  getTo() {
+    return this.to
   }
 
-  setCash(amount) {
-    this.cash = amount
+  setTo(currency) {
+    this.to = currency
   }
 
   getCash() {
     return this.cash
+  }
+
+  setCash(amount) {
+    this.cash = amount
   }
 
   static async getExchangeRateFor(currency) {

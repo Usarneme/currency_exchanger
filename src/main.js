@@ -30,8 +30,9 @@ const showExchangeSubmitButton = () => {
 $(".form").on("submit", event => {
   event.preventDefault()
   const cash = $("#original-amount").val()
-  if (cash === 0 || cash === "0") return alert("Please enter the cash amount you wish to exchange.")
-
+  // TODO - make this not an alert?
+  if (cash === 0 || cash === "0" || isNaN(Number(cash))) return alert("Please enter the cash amount you wish to exchange.")
+  myCurrencyExchange.setCash(Number(cash))
   console.log("FORM SUBMIT", myCurrencyExchange)
   // check cache for existing exchange rate
   // if yes, use cached data to get response/rate (cache invalidation/age of results?)

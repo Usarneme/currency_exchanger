@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <title>If you got the money, honey...</title>
+  <title>Currency Exchanger</title>
 </head>
 <body>
   <section class="container-fluid main">
-    <header class="container text-center text-uppercase header">
+    <header class="container text-center text-uppercase mb-5 p-2 header">
       <h1>If you got the money, honey...</h1>
       <p>I got the exchange rate for other currencies.</p>
     </header>
@@ -13,8 +13,9 @@
       <form class="form">
         <div class="container row">
           <label for="original-amount" class="col">Enter your original cash amount:</label>
-          <input type="number" min="0" name="original-amount" id="original-amount" required>
+          <input type="number" min="0" step="0.01" name="original-amount" id="original-amount" required>
         </div>
+        <hr />
         <div class="container row">
           <label class="col" for="currency-from">I want to exchange my:</label>
           <select class="col" id="currency-from" name="currency-from">
