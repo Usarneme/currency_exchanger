@@ -13,12 +13,12 @@
       <form class="form">
         <div class="container row">
           <label for="original-amount" class="col">Enter your original cash amount:</label>
-          <input type="number" min="0" step="0.01" name="original-amount" id="original-amount" required>
+          <input type="number" min="0.01" step="0.01" name="original-amount" id="original-amount" required>
         </div>
         <hr />
         <div class="container row">
           <label class="col" for="currency-from">I want to exchange my:</label>
-          <select class="col" id="currency-from" name="currency-from">
+          <select class="col" default="USD" id="currency-from" name="currency-from">
             <option value="" disabled>Select a currency</option>
             <option value="USD">🇺🇸 US Dollar</option>
             <option value="AFN">🇦🇫 Afghani </option>
@@ -311,7 +311,7 @@
             <option value="ZMW">🇿🇼 Zimbabwe Dollar</option>
           </select>
         </div>
-        <button class="btn btn-block btn-outline-info" id="exchangeSubmitButton">View Exchange Rate</button>
+        <button class="btn btn-block btn-outline-info m-3 p-1" id="exchangeSubmitButton">View Exchange Rate</button>
       </form>
     </div>
   </section>
