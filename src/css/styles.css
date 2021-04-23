@@ -18,6 +18,10 @@ body {
   color: var(--textLight);
 }
 
+.main {
+  min-height: 90vh;
+}
+
 #exchangeSubmitButton, .results, .alert {
   display: none;
 }
