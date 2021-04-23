@@ -5,7 +5,7 @@
 
 ### Project Description
 
-This project is a web application that allows uers to find exchange rates from any currency to any other. 
+This project is a web application that allows uers to find exchange rates from any currency to any other.
 ---
 ### Tech Stack
 1. HTML5+CSS3

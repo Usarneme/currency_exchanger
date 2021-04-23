@@ -1,5 +1,5 @@
-class CurrencyExchanger {
+export default class CurrencyExchanger {
   static async getExchangeRateFor(currency) {
-    return await "TODO"
+    return await currency
   }
 }
