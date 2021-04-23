@@ -18,7 +18,7 @@ This project is a web application that allows users to find exchange rates from 
 
 ### Project Build Available At:
 
-[https://usarneme.github.io/currency_exchanger/](https://usarneme.github.io/currency_exchanger/)
+[http://usarneme-currency.surge.sh/](http://usarneme-currency.surge.sh/)
 
 ---
 ### Installation Instructions
