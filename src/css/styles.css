@@ -1,3 +1,52 @@
+:root {
+  /* Polar Night Nord Theme Palette */
+  --darkest: #2E3440;
+  --dark: #3B4252;
+  --medium: #434C5E;
+  --light: #4C566A;
+  --textDark: #D8DEE9;
+  --textMedium: #E5E9F0;
+  --textLight: #ECEFF4;
+  --frostGreen: #8FBCBB;
+  --frostLight: #88C0D0;
+  --frostMedium: #81A1C1;
+  --frostDark: #5E81AC;
+}
+
+body {
+  background: var(--darkest);
+  color: var(--textLight);
+}
+
 #exchangeSubmitButton, .results, .alert {
   display: none;
+}
+
+.results {
+  background: var(--dark);
+  color: var(--textMedium);
+}
+
+.btn {
+  background: var(--light);
+  color: var(--textDark);
+  border: var(--textDark);
+}
+
+input, select {
+  background: var(--frostDark);
+  color: var(--textMedium);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--textMedium);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--textLight);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--textLight);
 }
