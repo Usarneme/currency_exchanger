@@ -44,34 +44,41 @@ const showExchangeSubmitButton = () => {
 }
 
 // handle form submission/data retrieval
-$(".form").on("submit", event => {
+$(".form").on("submit", async event => {
   event.preventDefault()
   console.log("FORM SUBMIT", myCurrencyExchange)
   // check cache for existing exchange rate
   let exchangeRateData = checkCache(myCurrencyExchange.getFrom())
+  console.log("checked cache, found:",exchangeRateData)
   if (exchangeRateData) {
-    // if yes, use cached data to get response/rate (cache invalidation/age of results?)
+    console.log("RETURNING CACHE")
+    // if yes, use cached data to get response/rate
+    // TODO - cache invalidation/age of results?
     return exchangeRateData
   } else {
+    console.log("CALLING API LOOKUP")
     // if no, make api call
     try {
-      exchangeRateData = myCurrencyExchange.getExchangeRatesFor(myCurrencyExchange.getFrom())
+      exchangeRateData = await CurrencyExchanger.getExchangeRatesFor(myCurrencyExchange.getFrom())
+      console.log("NO ERROR - got api data:",exchangeRateData)
+      if (exchangeRateData.result !== "success") throw new Error(`API call failed: ${exchangeRateData.result}`)
+      // update cache to save result
+      updateCache(exchangeRateData.base_code, JSON.stringify(exchangeRateData.conversion_rates))
+      // update ui
     } catch (error) {
       // TODO
       console.error(error)
     }
   }
-  // update cache to save result
-  updateCache(myCurrencyExchange.getFrom(), JSON.stringify(exchangeRateData))
-  // update ui
-
 })
 
 // check the cache for an existing exchange rate
 const checkCache = currency => {
+  console.log("CHECKING CACHE")
   return JSON.parse(window.sessionStorage.getItem(currency))
 }
-
+// update the cache with data retrieved from exchange rate api
 const updateCache = (currency, exchangeRates) => {
+  console.log("UPDATING CACHE")
   window.sessionStorage.setItem(currency, JSON.stringify(exchangeRates))
 }
